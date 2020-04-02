@@ -58,7 +58,8 @@ jobs:
         
     - name: Diff
       run: |
-        diff output/base output/change
+        # diff returns an error code if there are changs
+        diff output/base output/change || true
       
 
     
