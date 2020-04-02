@@ -16,6 +16,7 @@ with open('urls.yaml', 'r') as file:
   urls_list = yaml.load_all(file, Loader=yaml.FullLoader)
 
   for i, url in enumerate(urls_list):
+    i += 1
 
     urlwatch_output = ''
     try:
