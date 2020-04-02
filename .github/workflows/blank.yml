@@ -19,6 +19,8 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
+        sudo apt install tesseract-ocr
+        sudo apt install libtesseract-dev
         python -m pip install --upgrade pip
         pip install git+https://github.com/COVID19Tracking/urlwatch.git -r https://raw.githubusercontent.com/COVID19Tracking/urlwatch/master/requirements-dev.txt
     - name: Make output dir
