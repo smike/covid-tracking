@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install git+https://github.com/COVID19Tracking/urlwatch.git
+        pip install git+https://github.com/COVID19Tracking/urlwatch.git -r https://raw.githubusercontent.com/COVID19Tracking/urlwatch/master/requirements-dev.txt
     - name: Make output dir
       run: |
         mkdir output
