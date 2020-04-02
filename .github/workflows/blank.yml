@@ -22,14 +22,14 @@ jobs:
         sudo apt install tesseract-ocr
         python -m pip install --upgrade pip
         pip install git+https://github.com/COVID19Tracking/urlwatch.git -r https://raw.githubusercontent.com/COVID19Tracking/urlwatch/master/requirements-dev.txt
-    - name: Make output dir
+    - name: Make output dirs
       run: |
-        mkdir output
+        mkdir output_base output_pr
 
-    - name: Checkout Change
+    - name: Checkout PR
       uses: actions/checkout@v2
       with:
-        path: change
+        path: pr
 
     - name: Checkout base
       uses: actions/checkout@v2
@@ -37,28 +37,18 @@ jobs:
         path: base
         ref: ${{ github.event.pull_request.base.ref }}
     
-    - name: Run change
+    - name: Run PR
       run: |
-        pushd change
-        git status
-        git diff
-        popd
-        urlwatch --urls change/urls.yaml > output/change
-        cat output/change
+        python3 pr/evaluator.py --output_dir=output_pr
     
     - name: Run base
       run: |
-        pushd base
-        git status
-        git diff
-        popd
-        urlwatch --urls base/urls.yaml > output/base 
-        cat output/base
+        python3 base/evaluator.py --output_dir=output_base
         
     - name: Diff
       run: |
         # diff returns an error code if there are changs
-        diff output/base output/change || true
+        diff -r output_base output_pr || true
       
 
     
