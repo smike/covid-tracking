@@ -43,6 +43,7 @@ jobs:
         git diff
         popd
         urlwatch --urls change/urls.yaml > output/change
+        cat output/change
     
     - name: Run base
       run: |
@@ -51,10 +52,11 @@ jobs:
         git diff
         popd
         urlwatch --urls base/urls.yaml > output/base 
+        cat output/base
         
     - name: Diff
       run: |
-        diff output/master output/change
+        diff output/base output/change
       
 
     
