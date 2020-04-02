@@ -38,14 +38,18 @@ jobs:
     
     - name: Run change
       run: |
+        pushd change
         git status
         git diff
+        popd
         urlwatch --urls change/urls.yaml > output/change
     
     - name: Run base
       run: |
+        pushd base
         git status
         git diff
+        popd
         urlwatch --urls base/urls.yaml > output/base 
         
     - name: Diff
