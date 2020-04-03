@@ -9,11 +9,13 @@ parser.add_argument('--output_dir', type=str, default=None,
                     to a separate file in this directory. If unset, it will be 
                     sent to STDOUT''')
 
-args = parser.parse_args()
-args.output_dir
+parser.add_argument('--urls_yaml', type=str, default='urls.yaml',
+                    help='''Filter file to use.''')
 
-with open('urls.yaml', 'r') as file:
-  urls_list = yaml.load_all(file, Loader=yaml.FullLoader)
+args = parser.parse_args()
+
+with open(args.urls_yaml, 'r') as yaml_file:
+  urls_list = yaml.load_all(yaml_file, Loader=yaml.FullLoader)
 
   for i, url in enumerate(urls_list):
     i += 1
@@ -21,15 +23,12 @@ with open('urls.yaml', 'r') as file:
     urlwatch_output = ''
     try:
       urlwatch_output = subprocess.check_output(
-        ['urlwatch', '--urls', 'urls.yaml', '--test-filter', '{}'.format(i)], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
       urlwatch_output = e.output.decode()
 
     if args.output_dir:
-      with open(os.path.join(args.output_dir, url['name']), 'w') as f:
+      with open(os.path.join(args.output_dir, url['name']), 'w') as output_file:
         print(f"{url['name']}")
-        f.write(str(urlwatch_output))
+        output_file.write(str(urlwatch_output))
     else:
       print(f"{url['name']}:\n{urlwatch_output}\n")
-
-
