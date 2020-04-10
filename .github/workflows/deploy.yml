@@ -20,14 +20,14 @@ jobs:
     - name: Debug
       run: |
         echo "${{ secrets.SSH_HOST }}"
-        echo "${{ secrets.SSH_USERNAME }}"
+        echo "${{ secrets.SSH_USER }}"
         echo "${{ secrets.SSH_KEY }}"
 
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.0.7
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
+        username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase:
         debug: true
