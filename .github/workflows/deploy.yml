@@ -9,7 +9,7 @@ on:
       - deploy-workflow # TODO: change to 'master'
 
 jobs:
-  diff:
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     
@@ -22,7 +22,8 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        key: foo #${{ secrets.SSH_KEY }}
+        debug: true
         script: |
           cd covid-tracking-test
           git pull
