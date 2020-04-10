@@ -17,12 +17,6 @@ jobs:
     - name: Checkout pull request
       uses: actions/checkout@v2
 
-    - name: Debug
-      run: |
-        echo "${{ secrets.SSH_HOST }}"
-        echo "${{ secrets.SSH_USER }}"
-        echo "${{ secrets.SSH_KEY }}"
-
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.0.7
       with:
