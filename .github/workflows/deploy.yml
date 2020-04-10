@@ -18,12 +18,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: SSH Remote Commands
-    uses: appleboy/ssh-action@v0.0.7
-    with:
-      host: ${{ secrets.SSH_HOST }}
-      username: ${{ secrets.SSH_USERNAME }}
-      key: ${{ secrets.SSH_KEY }}
-      script: |
-        cd covid-tracking-test
-        git pull
+      uses: appleboy/ssh-action@v0.0.7
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd covid-tracking-test
+          git pull
 
