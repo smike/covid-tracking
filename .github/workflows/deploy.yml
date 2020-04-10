@@ -1,0 +1,29 @@
+# This workflow deploys new code to our server after a commit happens
+
+name: Deploy
+
+# Triggers the workflow for push events on the master branch only
+on: 
+  push:
+    branches:
+      - deploy-workflow # TODO: change to 'master'
+
+jobs:
+  diff:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout pull request
+      uses: actions/checkout@v2
+
+    - name: SSH Remote Commands
+    uses: appleboy/ssh-action@v0.0.7
+    with:
+      host: ${{ secrets.SSH_HOST }}
+      username: ${{ secrets.SSH_USERNAME }}
+      key: ${{ secrets.SSH_KEY }}
+      script: |
+        cd covid-tracking-test
+        git pull
+
