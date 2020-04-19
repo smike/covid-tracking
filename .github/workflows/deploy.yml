@@ -23,9 +23,16 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        passphrase:
         debug: true
         script: |
           cd covid-tracking-test
           git pull
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_COLOR: '#3278BD'
+        SLACK_MESSAGE: 'The previous changes has been deployed'
+        SLACK_TITLE: Commit Deployed
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
