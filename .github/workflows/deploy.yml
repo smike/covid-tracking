@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - deploy-workflow # TODO: change to 'master'
+      - master
 
 jobs:
   deploy:
@@ -14,9 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout pull request
-      uses: actions/checkout@v2
-
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.0.7
       with:
